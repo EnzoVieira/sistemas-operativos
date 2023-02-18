@@ -42,6 +42,11 @@ int writePerson(char *name, int age) {
   }
 
   Person person = newPerson(name, age);
+
+  off_t re = lseek(fdDestiny, 0, SEEK_END);
+  int reIndex = re / sizeof(person);
+  printf("%d - Registro: %lld\n", reIndex, re);
+
   write(fdDestiny, &person, sizeof(person));
 
   close(fdDestiny);
@@ -61,13 +66,35 @@ int updatePerson(char *name, int newAge) {
   while ( (resr = read(fd, &p, sizeof(p))) > 0 && strcmp(p.name, name) != 0 );
 
   // mover o ponteiro de arquivo
-  if (lseek(fd,-(off_t) sizeof(p),SEEK_CUR) < 0) {
+  if (lseek(fd, -(off_t) sizeof(p), SEEK_CUR) < 0) {
     perror("Error lseek");
     close(fd);
     return -1;
   }
 
   p.age = newAge;
+  write(fd, &p, sizeof(p));
+
+  close(fd);
+
+  return 0;
+}
+
+int updateByRegister(int reg, int newAge) {
+  int fd = open(FILE_NAME, O_RDWR | O_CREAT, 0640);
+  if (fd < 0) {
+    perror("Error open");
+    return -1;
+  }
+
+  Person p;
+  int regIndex = reg / sizeof(Person);
+  for (int i = 0; i <= regIndex; i++) {
+    read(fd, &p, sizeof(p));
+  }
+
+  p.age = newAge;
+  off_t newPointer = lseek(fd, -(off_t) sizeof(p), SEEK_CUR);
   write(fd, &p, sizeof(p));
 
   close(fd);

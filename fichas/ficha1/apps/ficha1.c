@@ -16,6 +16,9 @@ int main(int argc, char *argv[]) {
   else if (argc == 4 && strcmp("-u", argv[1]) == 0) {
     updatePerson(argv[2], atoi(argv[3]));
   }
+  else if (argc == 4 && strcmp("-o", argv[1]) == 0) {
+    updateByRegister(atoi(argv[2]), atoi(argv[3]));
+  }
   else if (argc == 2 && strcmp("-l", argv[1]) == 0) {
     list();
   }
