@@ -61,7 +61,7 @@ int updatePerson(char *name, int newAge) {
   while ( (resr = read(fd, &p, sizeof(p))) > 0 && strcmp(p.name, name) != 0 );
 
   // mover o ponteiro de arquivo
-  if (lseek(fd, resr, SEEK_SET) < 0) {
+  if (lseek(fd,-(off_t) sizeof(p),SEEK_CUR) < 0) {
     perror("Error lseek");
     close(fd);
     return -1;

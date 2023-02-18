@@ -6,10 +6,13 @@ OBJ = ./obj
 INCLUDE = ./include
 SRC = ./src
 
-all: mylibs myapps
+FILES = $(wildcard $(SRC)/*.c)
+DEPS = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(FILES))
 
-run: mylibs myapps
-	rm -rf pessoas.bin
+all: $(DEPS) $(BIN)/ficha1
+
+run: $(DEPS) $(BIN)/ficha1
+	@rm -rf pessoas.bin
 	$(BIN)/ficha1 -i "Enzo Vieira" 17
 	$(BIN)/ficha1 -i "Aline Borges" 18
 	$(BIN)/ficha1 -l
@@ -17,18 +20,13 @@ run: mylibs myapps
 	$(BIN)/ficha1 -u "Aline Borges" 21
 	$(BIN)/ficha1 -l
 
-mylibs: \
-			$(OBJ)/mycp.o \
-			$(OBJ)/mycat.o \
-			$(OBJ)/person.o
+# Gera arquivos objeto
+$(OBJ)/%.o: $(SRC)/%.c
+	$(CC) -c $(SRC)/$*.c -I $(INCLUDE) -o $@
 
-myapps: $(BIN)/ficha1
+# Gera arquivo principal
+$(BIN)/ficha1: $(FILES) $(APPS)/ficha1.c
+	$(CC) $(APPS)/ficha1.c $(OBJ)/*.o -I $(INCLUDE) -o $(BIN)/ficha1
 
-$(OBJ)/%.o: $(SRC)/%.c $(INCLUDE)/%.h
-	$(CC) -c $< -I $(INCLUDE) -o $@
-
-$(BIN)/%: $(APPS)/%.c
-	$(CC) $< $(OBJ)/*.o -I $(INCLUDE) -o $@
-
-clear:
-	rm -rf $(BIN)/* $(OBJ)/* pessoas.txt
+clean:
+	rm -rf $(OBJ)/* $(BIN)/* pessoas.bin
