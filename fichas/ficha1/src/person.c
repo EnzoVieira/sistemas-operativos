@@ -94,7 +94,7 @@ int updateByRegister(int reg, int newAge) {
   }
 
   p.age = newAge;
-  off_t newPointer = lseek(fd, -(off_t) sizeof(p), SEEK_CUR);
+  lseek(fd, -(off_t) sizeof(p), SEEK_CUR);
   write(fd, &p, sizeof(p));
 
   close(fd);
