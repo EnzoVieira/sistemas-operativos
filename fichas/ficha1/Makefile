@@ -15,14 +15,15 @@ all: $(DEPS) $(BIN)/ficha1
 run: $(DEPS) $(BIN)/ficha1
 	@rm -rf pessoas.bin
 	@$(BIN)/ficha1 -i "Enzo Vieira" 17
-	@$(BIN)/ficha1 -i "Aline Borges" 18
-	@$(BIN)/ficha1 -l
-	@$(BIN)/ficha1 -u "Enzo Vieira" 20
-	@$(BIN)/ficha1 -u "Aline Borges" 21
-	@$(BIN)/ficha1 -l
-	@$(BIN)/ficha1 -o 0 59
-	@$(BIN)/ficha1 -o 36 60
-	@$(BIN)/ficha1 -l
+# @$(BIN)/ficha1 -i "Aline Borges" 18
+# @$(BIN)/ficha1 -l
+# @$(BIN)/ficha1 -u "Enzo Vieira" 20
+# @$(BIN)/ficha1 -u "Aline Borges" 21
+# @$(BIN)/ficha1 -l
+# @$(BIN)/ficha1 -o 0 59
+# @$(BIN)/ficha1 -o 36 60
+# @$(BIN)/ficha1 -l
+# @$(BIN)/ficha1
 
 # Gera arquivos objeto
 $(OBJ)/%.o: $(SRC)/%.c
