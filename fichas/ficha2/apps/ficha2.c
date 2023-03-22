@@ -6,6 +6,7 @@
 #include "../include/ex4.h"
 #include "../include/ex5.h"
 #include "../include/ex6.h"
+#include "../include/ex7.h"
 
 int main() {
   // int pid = fork();
@@ -26,7 +27,8 @@ int main() {
   // ex3();
   // ex4();
   // ex5();
-  ex6();
+  // ex6();
+  ex7();
 
   return 0;
 }

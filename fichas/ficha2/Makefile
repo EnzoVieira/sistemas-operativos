@@ -24,7 +24,7 @@ $(BIN)/ficha2: $(FILES) $(APPS)/ficha2.c
 	$(CC) $(CFLAGS) $(APPS)/ficha2.c $(OBJ)/*.o -I $(INCLUDE) -o $(BIN)/ficha2
 
 clean_result:
-	rm -rf pessoas.bin
+	rm -rf matrix.bin
 
 clean:
-	rm -rf $(OBJ)/* $(BIN)/* pessoas.bin
+	rm -rf $(OBJ)/* $(BIN)/* matrix.bin
